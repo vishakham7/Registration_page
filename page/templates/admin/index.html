@@ -1,0 +1,7 @@
+{% extends 'admin/change_form.html' %}
+s{% load staticfiles %}
+
+{{ block.super }}
+<input class="default" onclick = "validate" ></input>
+<script src="{%static 'js/main.js' %}"></script>
+{% endblock %}

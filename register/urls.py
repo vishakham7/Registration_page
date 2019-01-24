@@ -20,7 +20,7 @@ from page import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^register/$', views.user_register, name='user_register'),
+    url(r'^detail/$', views.detail, name='user_register'),
     #url(r'^register/success.html', views.user_register, name='user_register')
 
 ]

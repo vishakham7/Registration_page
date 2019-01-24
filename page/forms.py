@@ -1,22 +1,10 @@
 from django import forms
-#from django.contrib.auth.forms import UserCreationForm
-#from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-import re
+from .models import User
 
-class User(forms.Form):
-    first_name = forms.CharField(max_length=500, required = True)
-
-    last_name = forms.CharField(max_length=500,required = True)
-    username = forms.CharField(max_length=500, required = True) 
-    password = forms.CharField(widget = forms.PasswordInput())
-    email = forms.EmailField(label='Enter email', required = True)
-    SAMPLE_CHOICES = ['Male', 'female']
-    Gender = forms.MultipleChoiceField(choices=SAMPLE_CHOICES, widget=forms.CheckboxSelectMultiple)
-    Address = forms.CharField(widget=forms.Textarea)
-    # validators should be a list
-    MobileNumber = forms.CharField(max_length=12)
-
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = '__all__'
 
     def clean_username(self):
         username = self.cleaned_data['username'].lower()
@@ -50,12 +38,3 @@ class User(forms.Form):
             return False
         else:
             return True
-
-    def save(self, commit=True):
-        user = User.objects.create_user(
-            self.cleaned_data['username'],
-            self.cleaned_data['email'],
-            self.cleaned_data['password1'],
-            self.cleaned_data['MobileNumber'],
-        )
-        return User
